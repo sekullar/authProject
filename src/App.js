@@ -25,6 +25,7 @@ function App() {
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Navigate to="/login" />} />
         <Route path="/home" element={<Homepage />} />
         <Route path="/" element={<Navigate to="/login" />} /> {/* Ana sayfayı login'e yönlendir */}
       </Routes>
