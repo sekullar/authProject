@@ -10,9 +10,11 @@ function App() {
   const navigate = useNavigate(); // useNavigate artık Router içinde
 
   const [cookies, setCookies] = useCookies(['uid'])
+  
 
   useEffect(() => {
     if(cookies.uid){
+      console.log("runned", cookies.uid)
       navigate("/home")
     }
     else{

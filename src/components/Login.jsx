@@ -31,7 +31,7 @@ const Login = () => {
         }
         else{
             e.preventDefault();
-            const user = await register(email,password,username)
+            const user = await register(email,password,username,"member")
             console.log(user)
             setCookie("uid", user.uid,{path: "/", expires: inOneYear})
             setTimeout(() => {
@@ -40,25 +40,36 @@ const Login = () => {
         }   
     }
 
-    const sendLogin = async e => {
-         // 1 yıl sonra bitecek
-         const inOneYear = new Date();
-         inOneYear.setFullYear(inOneYear.getFullYear() + 1); 
-
-        console.log("Send Login")
+    const sendLogin = async (e) => {
+        const inOneYear = new Date();
+        inOneYear.setFullYear(inOneYear.getFullYear() + 1); 
+      
+        console.log("Send Login");
         e.preventDefault();
-        if(password === ""){
-            toast.error("Şifre boş bırakılamaz!")
+      
+        if (password === "") {
+          toast.error("Şifre boş bırakılamaz!");
+          return;
         }
-        else{
-            const user = await login(email,password)
-            console.log(user)
-            setCookie("uid", user.uid,{path: "/", expires: inOneYear})
-            setTimeout(() => {
-                navigate("/Homepage")
-            }, 500)
+      
+        const user = await login(email, password);
+      
+        if (!user) {
+          console.log("Giriş başarısız.");
+          return;
         }
-    }
+      
+        const userKey = user.uid || undefined;
+      
+        if (userKey) {
+          setCookie("uid", user.uid, { path: "/", expires: inOneYear });
+        }
+      
+        setTimeout(() => {
+          navigate("/Homepage");
+        }, 500);
+      };
+      
 
     return(
         <>

@@ -21,7 +21,7 @@ const auth = getAuth();
 const db = getFirestore(app);
 
 
-export const register = async (email,password,username) => {
+export const register = async (email,password,username,role) => {
   
 
   try{
@@ -30,6 +30,7 @@ export const register = async (email,password,username) => {
     await setDoc(doc(db,"users",user.uid), {
       username: username,
       email: email,
+      role: role
     });
     toast.dismiss()
     toast.success("Kayıt olma işlemi başarılı")
@@ -53,8 +54,10 @@ export const login = async (email,password) => {
     return user
   }
   catch(error){
-    toast.error(error.message)
+    toast.dismiss()
+    toast.error("Kullanıcı adı veya şifreniz yanlış")
+    return null
   }
 }
-
+export { db };
 export default app
