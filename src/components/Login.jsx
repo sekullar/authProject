@@ -4,9 +4,13 @@ import "../css/main.css"
 import toast ,{ Toaster } from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie";
+import { DataContext } from './MainContext';
+import { useContext } from "react"
 
 
 const Login = () => {
+
+    const { setEmailContext,setPhotoUrl,setPhoneNumber,setUserId,setEmailVerified } = useContext(DataContext);
 
     
     const [email,setEmail] = useState();
@@ -15,7 +19,7 @@ const Login = () => {
     const [confirmPassword,setConfirmPassword] = useState();
     const navigate = useNavigate();
     const [loginScreen,setLoginScreen] = useState(true); 
-    const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const [cookies, setCookie, removeCookie] = useCookies(['uid']);
 
 
     const sendRegister = async e => {
@@ -51,23 +55,31 @@ const Login = () => {
           toast.error("Şifre boş bırakılamaz!");
           return;
         }
-      
-        const user = await login(email, password);
-      
-        if (!user) {
-          console.log("Giriş başarısız.");
-          return;
+        
+        try{
+            const user = await login(email, password);
+            console.log(user);
+            setEmailContext(user.email)
+            setPhotoUrl(user.photoURL)
+            setPhoneNumber(user.phoneNumber)
+            setUserId(user.uid)
+            setEmailVerified(user.emailVerified)
+            setCookie("uid", user.uid, { path: "/", expires: inOneYear });
+            setTimeout(() => {
+                navigate("/Homepage");
+              }, 500);
         }
-      
-        const userKey = user.uid || undefined;
-      
-        if (userKey) {
-          setCookie("uid", user.uid, { path: "/", expires: inOneYear });
+        catch(e){
+            console.log(e)
         }
+        
+        
       
-        setTimeout(() => {
-          navigate("/Homepage");
-        }, 500);
+      
+      
+        
+      
+        
       };
       
 

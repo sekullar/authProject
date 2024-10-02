@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Login from "./components/Login";
 import Homepage from "./components/Homepage";
 import { useCookies } from 'react-cookie';
+import { DataProvider } from './components/MainContext'; // Yolunu doğru ayarla
+
 
 function App() {
   const navigate = useNavigate(); // useNavigate artık Router içinde
@@ -37,8 +39,10 @@ function App() {
 
 export default function Main() {
   return (
-    <Router>
-      <App />
-    </Router>
+    <DataProvider>
+      <Router>
+        <App />
+      </Router>
+    </DataProvider>
   );
 }

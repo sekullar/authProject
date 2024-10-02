@@ -2,8 +2,9 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import { db } from '../firebase/Firebase'; 
 import { collection, getDocs } from 'firebase/firestore';
 import toast from 'react-hot-toast';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { DataContext } from './MainContext';
 import "../css/main.css"
 
 
@@ -13,6 +14,10 @@ const Sidebar = () => {
 
     const [tabListState,setTabListState] = useState();
     const [loadingTabs, setLoadingTabs] = useState(true);
+
+    const { userInfoRole } = useContext(DataContext);
+    const { contentValue,setContentValue } = useContext(DataContext);
+    
 
 
     useEffect(() => {
@@ -24,10 +29,9 @@ const Sidebar = () => {
         try {
             const tabsCollection = collection(db, "AdminTabs");
             const tabsSnapshot = await getDocs(tabsCollection);
-            // doc.data() fonksiyonunu çağırdığınızdan emin olun
             const tabsList = tabsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setTabListState(tabsList);
-            console.log(tabsList);
+            console.log("tabsList",tabsList);
             setLoadingTabs(false)
             return tabsList;
         } catch (error) {
@@ -37,10 +41,13 @@ const Sidebar = () => {
         }
     };
         
+    useEffect(() => {
+        setContentValue("home")
+    }, [])
 
     return(
         <>
-        <div className='bg-white m-2 p-5 rounded-lg mt-1 w-[250px] h-full mb-5'>
+        <div className='bg-white m-2 p-5 rounded-lg mt-1 w-[350px] h-full mb-5'>
         {loadingTabs ?
             <div className='flex items-center justify-center h-full'>
                  <ProgressSpinner /> 
@@ -49,19 +56,29 @@ const Sidebar = () => {
         {tabListState && tabListState.map((tab) => {
             const keyName = tab.id; 
             console.log(keyName);
-    
+            console.log(tab)
             const tabKeys = Object.keys(tab).filter(key => key !== 'id');
-    
+            const isMemberRole = userInfoRole === 'member';
+
+            
             return (
-                <AccordionTab header={
-                    <span className='text-xl inter-500'>{keyName}</span>
-                } key={keyName}>
-                    {tabKeys.map((subKey) => (
-                        <div key={subKey} className='flex flex-col gap-2 my-1'>
-                            <span className='inter-400 cursor-pointer'>{subKey} </span>{tab[subKey]}
-                        </div>
-                    ))}
-                </AccordionTab>
+                <AccordionTab 
+                className={keyName === "Üye Sekmeleri" && isMemberRole ? "hidden" : "isOk"} 
+                header={<span className='text-xl inter-500'>{keyName}</span>} 
+                key={keyName}
+            >
+                {tabKeys.map((subKey) => (
+                    <div key={subKey} className='flex flex-col gap-2 my-1'>
+                        <span 
+                            className='inter-400 cursor-pointer' 
+                            onClick={() => setContentValue(tab[subKey])} 
+                        >
+                            {tab[subKey]} 
+                        </span>
+                    </div>
+                ))}
+            </AccordionTab>
+            
             );
         })}
     </Accordion>}    

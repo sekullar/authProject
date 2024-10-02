@@ -1,0 +1,15 @@
+.border-semiblack-special{
+    border: 1px solid rgba(128, 126, 126, 0.37);
+}
+
+.border-semiblack-special h2 button{
+    outline: 0px solid transparent;
+}
+
+hr{
+    display: none !important;
+}
+
+.border-semiblack-special button{
+    justify-content: space-between;
+}

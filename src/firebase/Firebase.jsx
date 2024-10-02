@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth , createUserWithEmailAndPassword, useDeviceLanguage, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import toast, { Toaster } from 'react-hot-toast';
 import { getFirestore, setDoc, doc  } from "firebase/firestore";
+import { getAnalytics } from "firebase/analytics";
 
 
 
@@ -18,6 +19,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 
@@ -44,20 +46,38 @@ export const register = async (email,password,username,role) => {
    
 }
 
-export const login = async (email,password) => {
-  try{
-    console.log("Gidiyorum.")
-    toast.loading("Yükleniyor...")
-    const {user} = await signInWithEmailAndPassword(auth,email,password)
-    toast.dismiss()
-    toast.success("Giriş işlemi başarılı!")
-    return user
+
+export const login = async (email, password) => {
+  try {
+    console.log("Gidiyorum.");
+    toast.loading("Yükleniyor...");
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
+    toast.dismiss();
+    toast.success("Giriş işlemi başarılı!");
+    return user;
+  } catch (error) {
+    toast.dismiss();
+    console.log(error.code)
+
+    // Hata mesajını kontrol ederek özel bir toast göstermek
+    switch (error.code) {
+      case "auth/invalid-credential":
+        toast.error("Kullanıcı adı veya şifre yanlış");
+        break;
+      case "auth/too-many-requests":
+        toast.error("Çok fazla istekte bulundunuz, lütfen bir süre sonra tekrar");
+        break;
+      case "auth/invalid-email":
+        toast.error("Geçersiz e-posta adresi!");
+        break;
+      default:
+        toast.error("Giriş işlemi sırasında bir hata oluştu.");
+        break;
+    }
+
+    return null;
   }
-  catch(error){
-    toast.dismiss()
-    toast.error("Kullanıcı adı veya şifreniz yanlış")
-    return null
-  }
-}
+};
+
 export { db };
 export default app
