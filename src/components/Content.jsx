@@ -10,6 +10,7 @@ import { useCookies } from "react-cookie";
 import Account from "./Account";
 import SSS from "../components/SSS"
 import Home from "../components/Home"
+import MemberTabsControl from "./MemberTabsControl";
 
 
 const Content = () => {
@@ -26,6 +27,7 @@ const Content = () => {
     const [homeShow, setHomeShow] = useState(true)
     const [sssShow,setSssShow] = useState(false);
     const [userSettingsShow,setUserSettingsShow] = useState(false);
+    const [memberTabsControl,setMemberTabsControl] = useState(false)
 
 
 
@@ -37,10 +39,11 @@ const Content = () => {
         const userSnapShot = await getDocs(userInfoCollection);
         const userList = userSnapShot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         console.log("userList",userList)
-        const foundUser = userList.find(user => user.id === cookies.uid);  // userList'ten uid ile eşleşeni bul
+        const foundUser = userList.find(user => user.id === cookies.uid);
+        console.log("userSnapShot",userSnapShot)  
         if (foundUser) {
-            setUserInfoName(foundUser.username);  // eşleşen kullanıcının username'ini al
-            setUserInfoRole(foundUser.role);  // eşleşen kullanıcının rolünü al
+            setUserInfoName(foundUser.username);  
+            setUserInfoRole(foundUser.role);  
         }
         setLoadingState(false)
     }
@@ -50,17 +53,25 @@ const Content = () => {
             setHomeShow(true)
             setSssShow(false)
             setUserSettingsShow(false)
+            setMemberTabsControl(false)
         }
         if (contentValue == "Kişisel Sorular"){
             setSssShow(true)
             setHomeShow(false)
             setUserSettingsShow(false)
+            setMemberTabsControl(false)
         }
         if(contentValue == "userSettings"){
             setUserSettingsShow(true)
             setSssShow(false)
+            setMemberTabsControl(false)
             setHomeShow(false)
-
+        }
+        if(contentValue == `"Member" sekmelerini yönet`){
+            setMemberTabsControl(true)
+            setUserSettingsShow(false)
+            setSssShow(false)
+            setHomeShow(false)
         }
     }, [contentValue])
 
@@ -85,7 +96,7 @@ const Content = () => {
                         <Home userInfoName={userInfoName} userInfoRole={userInfoRole}/>
                     </div> : ""}
                     {userSettingsShow ? <Account/> : ""}
-                    
+                    {memberTabsControl ? <MemberTabsControl /> : ""}
                 </div>
             }
         </>
