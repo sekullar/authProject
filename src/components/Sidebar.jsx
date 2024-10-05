@@ -17,6 +17,8 @@ const Sidebar = () => {
 
     const { userInfoRole } = useContext(DataContext);
     const { contentValue,setContentValue } = useContext(DataContext);
+    const { tabsRoleSender,setTabsRoleSender} = useContext(DataContext);
+
     
 
 
@@ -54,31 +56,32 @@ const Sidebar = () => {
             </div>
         :  <Accordion className='flex flex-col gap-4'>
         {tabListState && tabListState.map((tab) => {
-            const keyName = tab.id; 
-            console.log(keyName);
-            console.log(tab)
-            const tabKeys = Object.keys(tab).filter(key => key !== 'id');
-            const isMemberRole = userInfoRole === 'member';
+              const keyName = tab.id; 
+              const tabKeys = Object.keys(tab).filter(key => key !== 'id');
+              const showRoles = tab.show.split(",");
+              const isMemberRole = userInfoRole === 'member'; 
+          
+              const isHiddenForMember = showRoles.includes('Member') && isMemberRole;
 
-            
             return (
                 <AccordionTab 
-                className={keyName === "Üye Sekmeleri" && isMemberRole ? "hidden" : "isOk"} 
-                header={<span className='text-xl inter-500'>{keyName}</span>} 
-                key={keyName}
-            >
-                {tabKeys.map((subKey) => (
-                    <div key={subKey} className='flex flex-col gap-2 my-1'>
-                        <span 
-                            className='inter-400 cursor-pointer' 
-                            onClick={() => setContentValue(tab[subKey])} 
-                        >
-                            {tab[subKey]} 
-                        </span>
-                    </div>
-                ))}
-            </AccordionTab>
-            
+                    className={isHiddenForMember ? "isOk" : userInfoRole === "Admin" || userInfoRole === "Seku" ? "isOk" : "hidden" } 
+                    header={<span className='text-xl inter-500'>{keyName}</span>} 
+                    key={keyName}
+                >
+                     {tabKeys
+                    .filter(subKey => subKey !== 'show') 
+                    .map((subKey) => (
+                        <div key={subKey} className='flex flex-col gap-2 my-1'>
+                            <span 
+                                className='inter-400 cursor-pointer' 
+                                onClick={() => setContentValue(tab[subKey])}>
+                                {tab[subKey]} 
+                            </span>
+                        </div>
+                    ))
+                }
+                </AccordionTab>
             );
         })}
     </Accordion>}    

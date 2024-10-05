@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Homepage from "./components/Homepage";
 import { useCookies } from 'react-cookie';
 import { DataProvider } from './components/MainContext'; // Yolunu doğru ayarla
+import { PrimeReactProvider } from 'primereact/api';
 
 
 function App() {
@@ -39,10 +40,12 @@ function App() {
 
 export default function Main() {
   return (
-    <DataProvider>
+    <PrimeReactProvider>
+      <DataProvider>
       <Router>
         <App />
       </Router>
     </DataProvider>
+    </PrimeReactProvider>
   );
 }

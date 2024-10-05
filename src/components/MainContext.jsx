@@ -26,7 +26,7 @@ const DataProvider = ({ children }) => {
     }, [cookies.uid])
     
     return(
-        <DataContext.Provider value={{ userInfoName,userInfoRole, contentValue, photoUrl, emailContext, phoneNumber, userId, emailVerified, setUserInfoName, setUserInfoRole, setContentValue, setPhotoUrl, setEmailContext, setPhoneNumber, setUserId, setEmailVerified }}>
+        <DataContext.Provider value={{ userInfoName,userInfoRole, contentValue, photoUrl, emailContext, phoneNumber, userId, emailVerified,  setUserInfoName, setUserInfoRole, setContentValue, setPhotoUrl, setEmailContext, setPhoneNumber, setUserId, setEmailVerified }}>
             {children}
         </DataContext.Provider>
     ) 

@@ -1,3 +1,33 @@
 .border-black-special{
-    border: 1px solid black;
+    border: 1px solid rgba(126, 126, 126, 0.452);
 }
+
+.ReactModal__Overlay{
+    background-color: rgb(79 79 79 / 75%) !important;
+}
+
+.ReactModalPortal{
+    background-color: rgb(79 79 79 / 75%) !important;
+}
+
+.border-black-role-list{
+    border: 1px solid rgba(81, 81, 81, 0.523)
+}
+
+.p-inputswitch-input{
+    width: 20px;
+    height: 20px;
+}
+
+.p-inputswitch{
+    display: flex;
+    align-items: center;
+}
+
+#addTabsInRoles{
+    outline: 0px solid transparent;
+    border: 1px solid rgba(0, 0, 0, 0.364);
+    padding: 4px;
+    border-radius: 6px;
+}
+
