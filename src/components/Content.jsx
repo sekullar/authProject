@@ -11,6 +11,7 @@ import Account from "./Account";
 import SSS from "../components/SSS"
 import Home from "../components/Home"
 import MemberTabsControl from "./MemberTabsControl";
+import ToDoList from "./ToDoList";
 
 
 const Content = () => {
@@ -27,7 +28,8 @@ const Content = () => {
     const [homeShow, setHomeShow] = useState(true)
     const [sssShow,setSssShow] = useState(false);
     const [userSettingsShow,setUserSettingsShow] = useState(false);
-    const [memberTabsControl,setMemberTabsControl] = useState(false)
+    const [memberTabsControl,setMemberTabsControl] = useState(false);
+    const [TodoApp, setTodoApp] = useState(false)
 
 
 
@@ -53,12 +55,14 @@ const Content = () => {
             setHomeShow(true)
             setSssShow(false)
             setUserSettingsShow(false)
+            setTodoApp(false)
             setMemberTabsControl(false)
         }
         if (contentValue == "Kişisel Sorular"){
             setSssShow(true)
             setHomeShow(false)
             setUserSettingsShow(false)
+            setTodoApp(false)
             setMemberTabsControl(false)
         }
         if(contentValue == "userSettings"){
@@ -66,9 +70,18 @@ const Content = () => {
             setSssShow(false)
             setMemberTabsControl(false)
             setHomeShow(false)
+            setTodoApp(false)
         }
         if(contentValue == `"Member" sekmelerini yönet`){
             setMemberTabsControl(true)
+            setUserSettingsShow(false)
+            setSssShow(false)
+            setHomeShow(false)
+            setTodoApp(false)
+        }
+        if(contentValue == "ToDo List App"){
+            setTodoApp(true)
+            setMemberTabsControl(false)
             setUserSettingsShow(false)
             setSssShow(false)
             setHomeShow(false)
@@ -86,7 +99,7 @@ const Content = () => {
                 <ProgressSpinner />
             </div>
              : 
-                <div className="bg-white p-8 rounded-lg h-full w-full mb-4 me-2">
+                <div className="bg-white p-8 rounded-lg  h-full w-full mb-4 me-2">
                     {sssShow ?  <div className="flex flex-col">
                         <p className="text-center text-5xl inter-600">SSS</p>
                         <p className="text-center text-xl inter-400 mt-3">Kişisel Sorular</p>
@@ -97,6 +110,7 @@ const Content = () => {
                     </div> : ""}
                     {userSettingsShow ? <Account/> : ""}
                     {memberTabsControl ? <MemberTabsControl /> : ""}
+                    {TodoApp ? <ToDoList /> : ""}
                 </div>
             }
         </>
