@@ -12,6 +12,9 @@ import SSS from "../components/SSS"
 import Home from "../components/Home"
 import MemberTabsControl from "./MemberTabsControl";
 import ToDoList from "./ToDoList";
+import QuickSiteComp from "./QuickSite";
+import QuickSiteAdminComp from "./QuickSiteAdmin";
+import UserControl from "./UserControl";
 
 
 const Content = () => {
@@ -30,6 +33,10 @@ const Content = () => {
     const [userSettingsShow,setUserSettingsShow] = useState(false);
     const [memberTabsControl,setMemberTabsControl] = useState(false);
     const [TodoApp, setTodoApp] = useState(false)
+    const [QuickSite, setQuickSite] = useState(false)
+    const [QuickSiteAdmin, setQuickSiteAdmin] = useState(false)
+    const [userControlState,setUserControlState] = useState(false);
+
 
 
 
@@ -51,42 +58,58 @@ const Content = () => {
     }
 
     useEffect(() => {
-        if(contentValue == "home"){
-            setHomeShow(true)
-            setSssShow(false)
-            setUserSettingsShow(false)
-            setTodoApp(false)
-            setMemberTabsControl(false)
+        const componentsVisibility = {
+            home: false,
+            KişiselSorular: false,
+            userSettings: false,
+            memberTabsControl: false,
+            todoApp: false,
+            quickSite: false,
+            quickSiteAdmin: false,
+            userControl: false
+        };
+    
+        // contentValue değerine göre ilgili bileşeni göster
+        switch (contentValue) {
+            case "home":
+                componentsVisibility.home = true;
+                break;
+            case "Kişisel Sorular":
+                componentsVisibility.KişiselSorular = true;
+                break;
+            case "userSettings":
+                componentsVisibility.userSettings = true;
+                break;
+            case `"Member" sekmelerini yönet`:
+                componentsVisibility.memberTabsControl = true;
+                break;
+            case "ToDo List App":
+                componentsVisibility.todoApp = true;
+                break;
+            case "Quick Site":
+                componentsVisibility.quickSite = true;
+                break;
+            case "Quick Site Admin":
+                componentsVisibility.quickSiteAdmin = true;
+                break;
+            case "Üye kontrolü":
+                componentsVisibility.userControlState = true;
+                break;
+            default:
+                break;
         }
-        if (contentValue == "Kişisel Sorular"){
-            setSssShow(true)
-            setHomeShow(false)
-            setUserSettingsShow(false)
-            setTodoApp(false)
-            setMemberTabsControl(false)
-        }
-        if(contentValue == "userSettings"){
-            setUserSettingsShow(true)
-            setSssShow(false)
-            setMemberTabsControl(false)
-            setHomeShow(false)
-            setTodoApp(false)
-        }
-        if(contentValue == `"Member" sekmelerini yönet`){
-            setMemberTabsControl(true)
-            setUserSettingsShow(false)
-            setSssShow(false)
-            setHomeShow(false)
-            setTodoApp(false)
-        }
-        if(contentValue == "ToDo List App"){
-            setTodoApp(true)
-            setMemberTabsControl(false)
-            setUserSettingsShow(false)
-            setSssShow(false)
-            setHomeShow(false)
-        }
-    }, [contentValue])
+    
+        // Bileşenlerin görünürlük durumunu ayarlamak için set fonksiyonlarını çağır
+        setHomeShow(componentsVisibility.home);
+        setSssShow(componentsVisibility.KişiselSorular);
+        setUserSettingsShow(componentsVisibility.userSettings);
+        setMemberTabsControl(componentsVisibility.memberTabsControl);
+        setTodoApp(componentsVisibility.todoApp);
+        setQuickSite(componentsVisibility.quickSite);
+        setQuickSiteAdmin(componentsVisibility.quickSiteAdmin);
+        setUserControlState(componentsVisibility.userControl)
+    }, [contentValue]);
+    
 
     useEffect(() => {
         getUserInfos()
@@ -111,6 +134,9 @@ const Content = () => {
                     {userSettingsShow ? <Account/> : ""}
                     {memberTabsControl ? <MemberTabsControl /> : ""}
                     {TodoApp ? <ToDoList /> : ""}
+                    {QuickSite ? <QuickSiteComp /> : ""}
+                    {QuickSiteAdmin ? <QuickSiteAdminComp /> : ""}
+                    {userControlState ? <UserControl /> : ""}
                 </div>
             }
         </>
