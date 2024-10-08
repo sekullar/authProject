@@ -92,8 +92,8 @@ const Content = () => {
             case "Quick Site Admin":
                 componentsVisibility.quickSiteAdmin = true;
                 break;
-            case "Üye kontrolü":
-                componentsVisibility.userControlState = true;
+            case "Üye Kontrolü":
+                componentsVisibility.userControl = true;
                 break;
             default:
                 break;

@@ -16,7 +16,7 @@ const MemberTabsControl = () => {
     const [loadingState, setLoadingState] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [loadingState2, setLoadingState2] = useState(false);
-    const [newRole, setNewRole] = useState(""); 
+    const [newRole, setNewRole] = useState("");
 
     // modal infos 
     const [tabName, setTabName] = useState("");
@@ -83,13 +83,13 @@ const MemberTabsControl = () => {
             try {
                 const updatedRoles = [...roleSwitches, { role: newRole, checked: true }];
                 setRoleSwitches(updatedRoles);
-    
-                const adminTabDocRef = doc(db, "AdminTabs", tabName); 
-                const rolesToUpdate = updatedRoles.map(roleSwitch => roleSwitch.role); 
+
+                const adminTabDocRef = doc(db, "AdminTabs", tabName);
+                const rolesToUpdate = updatedRoles.map(roleSwitch => roleSwitch.role);
                 await updateDoc(adminTabDocRef, { show: rolesToUpdate.join(",") });
-    
+
                 toast.success("Yeni rol başarıyla eklendi!");
-                setNewRole(""); 
+                setNewRole("");
             } catch (error) {
                 toast.error("Yeni rol eklenirken bir hata oluştu.");
                 console.error("Firebase hatası:", error);
@@ -103,13 +103,13 @@ const MemberTabsControl = () => {
                 .filter(roleSwitch => roleSwitch.checked)
                 .map(roleSwitch => roleSwitch.role);
 
-            const rolesString = updatedRoles.join(","); 
+            const rolesString = updatedRoles.join(",");
 
-            const adminTabDocRef = doc(db, "AdminTabs", tabName); 
+            const adminTabDocRef = doc(db, "AdminTabs", tabName);
             await updateDoc(adminTabDocRef, { show: rolesString });
 
             toast.success("Roller başarıyla kaydedildi!");
-            setModalOpen(false); 
+            setModalOpen(false);
             setEditMod(false);
         } catch (error) {
             toast.error("Roller kaydedilirken bir hata oluştu.");
@@ -122,7 +122,7 @@ const MemberTabsControl = () => {
                 <div className="flex flex-col w-[500px]">
                     <div className="flex items-center justify-between">
                         <p className='inter-400 text-2xl'>{tabName} sekmesini yönet</p>
-                        <img src={CloseImg} onClick={() => {setModalOpen(false); setEditMod(false)}} className='w-[35px] invert cursor-pointer' alt='Close' />
+                        <img src={CloseImg} onClick={() => { setModalOpen(false); setEditMod(false) }} className='w-[35px] invert cursor-pointer' alt='Close' />
                     </div>
                     <div className='flex flex-col mt-12'>
                         <div className="flex items-center justify-between">
@@ -133,39 +133,39 @@ const MemberTabsControl = () => {
                             <button onClick={() => setEditMod(!editMode)} className='inter-500 bg-sky-500 transition-all duration-300 hover:bg-sky-600 py-1 px-5 text-white rounded-lg text-lg'>Düzenle</button>
                         </div>
                     </div>
-                    {editMode ? 
+                    {editMode ?
                         <div className="flex flex-col mt-16">
                             <span className='text-xl inter-500'>Görecek yeni rolleri girin:</span>
                             {roleSwitches.map((roleSwitch, index) => (
                                 <div key={index} className='flex items-center justify-between border-black-role-list p-3 rounded-lg my-2'>
                                     <span>{roleSwitch.role}</span>
-                                    {roleSwitch.role === "Seku" ? 
-                                    <InputSwitch
-                                    checked
-                                    disabled  
-                                    /> : 
-                                <InputSwitch
-                                        checked={roleSwitch.checked}
-                                        onChange={() => handleSwitchChange(index)}
-                                    />}
-                                    
+                                    {roleSwitch.role === "Seku" ?
+                                        <InputSwitch
+                                            checked
+                                            disabled
+                                        /> :
+                                        <InputSwitch
+                                            checked={roleSwitch.checked}
+                                            onChange={() => handleSwitchChange(index)}
+                                        />}
+
                                 </div>
-                            ))}                
+                            ))}
                             <div className='flex justify-center'>
-                                <button 
+                                <button
                                     className='text-white text-lg rounded-lg bg-sky-500 hover:bg-sky-600 transition-all duration-300 py-1 px-8'
                                     onClick={handleSaveRoles}
                                 >
                                     Kaydet
                                 </button>
-                            </div>    
+                            </div>
                             <div className="flex items-center mt-3">
                                 <span className='inter-400'>Eklenecek yeni rolleri girin: <span></span></span>
                             </div>
-                            <input type="text" className='mt-1' value={newRole} onChange={(e) => setNewRole(e.target.value)} id='addTabsInRoles'/>
+                            <input type="text" className='mt-1' value={newRole} onChange={(e) => setNewRole(e.target.value)} id='addTabsInRoles' />
                             <div className='overflow-y-hidden mt-3 flex items-center'>
                                 <button onClick={() => handleAddRole()} className='py-2 px-6 bg-sky-500 hover:bg-sky-600 transition-all duration-300 text-white inter-400 rounded-lg me-2'>Ekle</button>
-                                <PopoverTabControl/>
+                                <PopoverTabControl />
                                 {loadingState2 ? <ProgressSpinner /> : ""}
                             </div>
                         </div> : ""
