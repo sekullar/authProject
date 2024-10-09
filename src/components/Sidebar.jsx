@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useContext, useEffect, useState } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { DataContext } from './MainContext';
+import { useNavigate } from "react-router-dom"
 import "../css/main.css"
 
 
@@ -14,10 +15,11 @@ const Sidebar = () => {
 
     const [tabListState,setTabListState] = useState();
     const [loadingTabs, setLoadingTabs] = useState(true);
-
+    const navigate = useNavigate();
     const { userInfoRole } = useContext(DataContext);
     const { contentValue,setContentValue } = useContext(DataContext);
     const { tabsRoleSender,setTabsRoleSender} = useContext(DataContext);
+    const { banCheck } = useContext(DataContext);
 
     
 
@@ -33,18 +35,21 @@ const Sidebar = () => {
             const tabsSnapshot = await getDocs(tabsCollection);
             const tabsList = tabsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setTabListState(tabsList);
-            console.log("tabsList",tabsList);
             setLoadingTabs(false)
             return tabsList;
         } catch (error) {
             setLoadingTabs(false)
-            console.log(error);
             toast.error("Sekme verileri alınırken hata oluştu, lütfen konsolu kontrol edin.");
         }
     };
         
     useEffect(() => {
-        setContentValue("home")
+        if(banCheck === true){
+            navigate("/banned")
+        }
+        else{
+            setContentValue("home")
+        }
     }, [])
 
     return(

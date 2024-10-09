@@ -23,7 +23,7 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 
-export const register = async (email,password,username,role) => {
+export const register = async (email,password,username,role,banControl) => {
   
 
   try{
@@ -32,7 +32,8 @@ export const register = async (email,password,username,role) => {
     await setDoc(doc(db,"users",user.uid), {
       username: username,
       email: email,
-      role: role
+      role: role,
+      banned: banControl
     });
     toast.dismiss()
     toast.success("Kayıt olma işlemi başarılı")
@@ -49,7 +50,6 @@ export const register = async (email,password,username,role) => {
 
 export const login = async (email, password) => {
   try {
-    console.log("Gidiyorum.");
     toast.loading("Yükleniyor...");
     const { user } = await signInWithEmailAndPassword(auth, email, password);
     toast.dismiss();
@@ -57,7 +57,6 @@ export const login = async (email, password) => {
     return user;
   } catch (error) {
     toast.dismiss();
-    console.log(error.code)
 
     // Hata mesajını kontrol ederek özel bir toast göstermek
     switch (error.code) {

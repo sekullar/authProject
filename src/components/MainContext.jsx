@@ -13,6 +13,7 @@ const DataProvider = ({ children }) => {
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [userId, setUserId] = useState(null)
     const [emailVerified, setEmailVerified] = useState(null)
+    const [banCheck,setBanCheck] = useState(null)
 
 
 
@@ -26,7 +27,7 @@ const DataProvider = ({ children }) => {
     }, [cookies.uid])
     
     return(
-        <DataContext.Provider value={{ userInfoName,userInfoRole, contentValue, photoUrl, emailContext, phoneNumber, userId, emailVerified,  setUserInfoName, setUserInfoRole, setContentValue, setPhotoUrl, setEmailContext, setPhoneNumber, setUserId, setEmailVerified }}>
+        <DataContext.Provider value={{ userInfoName,userInfoRole, contentValue, photoUrl, emailContext, phoneNumber, userId, emailVerified, banCheck,  setUserInfoName, setUserInfoRole, setContentValue, setPhotoUrl, setEmailContext, setPhoneNumber, setUserId, setEmailVerified, setBanCheck }}>
             {children}
         </DataContext.Provider>
     ) 

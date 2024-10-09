@@ -8,28 +8,29 @@ import { useCookies } from 'react-cookie';
 import { DataProvider } from './components/MainContext'; // Yolunu doğru ayarla
 import { PrimeReactProvider } from 'primereact/api';
 import { Analytics } from "@vercel/analytics/react"
+import { DataContext } from "./components/MainContext"
+import { useContext } from "react"
+import Banned from './components/Banned';
 
 
 function App() {
   const navigate = useNavigate(); // useNavigate artık Router içinde
 
   const [cookies, setCookies] = useCookies(['uid'])
+
+  const { banCheck } = useContext(DataContext)
+  
   
 
-  useEffect(() => {
-    if(cookies.uid){
-      console.log("runned", cookies.uid)
-      navigate("/home")
-    }
-    else{
-      navigate("/login"); // Yönlendirme  
-    }
-  }, [navigate]);
+ 
+
+  
 
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
+        <Route path='/banned' element={<Banned />} />
         <Route path="/login" element={<Login />} />
         <Route path="/login" element={<Navigate to="/login" />} />
         <Route path="/home" element={<Homepage />} />

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie";
 import { DataContext } from './MainContext';
 import { useContext } from "react"
+import { useEffect } from "react"
 
 
 const Login = () => {
@@ -20,6 +21,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [loginScreen,setLoginScreen] = useState(true); 
     const [cookies, setCookie, removeCookie] = useCookies(['uid']);
+    const [banCheck,setBanCheck] = useState(false)
 
 
     const sendRegister = async e => {
@@ -28,18 +30,16 @@ const Login = () => {
         const inOneYear = new Date();
         inOneYear.setFullYear(inOneYear.getFullYear() + 1); 
 
-        console.log("Send Register")
         e.preventDefault();
         if(confirmPassword != password){
             toast.error("Şifreniz birbiriyle uyuşmamaktadır!")
         }
         else{
             e.preventDefault();
-            const user = await register(email,password,username,"member")
-            console.log(user)
+            const user = await register(email,password,username,"member","false")
             setCookie("uid", user.uid,{path: "/", expires: inOneYear})
             setTimeout(() => {
-                navigate("/Homepage")
+                navigate("/home")
             }, 500)
         }   
     }
@@ -48,7 +48,6 @@ const Login = () => {
         const inOneYear = new Date();
         inOneYear.setFullYear(inOneYear.getFullYear() + 1); 
       
-        console.log("Send Login");
         e.preventDefault();
       
         if (password === "") {
@@ -58,7 +57,6 @@ const Login = () => {
         
         try{
             const user = await login(email, password);
-            console.log(user);
             setEmailContext(user.email)
             setPhotoUrl(user.photoURL)
             setPhoneNumber(user.phoneNumber)
@@ -66,21 +64,18 @@ const Login = () => {
             setEmailVerified(user.emailVerified)
             setCookie("uid", user.uid, { path: "/", expires: inOneYear });
             setTimeout(() => {
-                navigate("/Homepage");
+                navigate("/home");
               }, 500);
         }
         catch(e){
-            console.log(e)
         }
-        
-        
-      
-      
-      
-        
-      
-        
       };
+
+      useEffect(() => {
+        if(cookies.uid){
+            navigate("/home")
+        }
+      }, [])
       
 
     return(

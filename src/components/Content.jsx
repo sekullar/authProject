@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { DataContext } from "./MainContext"
 import { useContext } from "react"
 import "../css/content.css"
+import { useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie";
 import Account from "./Account";
 import SSS from "../components/SSS"
@@ -23,8 +24,9 @@ const Content = () => {
 
     const { userInfoName, setUserInfoName } = useContext(DataContext)
     const { userInfoRole, setUserInfoRole } = useContext(DataContext)
+    const { banCheck, setBanCheck } = useContext(DataContext)
     const { contentValue } = useContext(DataContext)
-
+    const navigate = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies(['uid']);
 
 
@@ -40,6 +42,7 @@ const Content = () => {
 
 
 
+
     const [loadingState, setLoadingState] = useState(true);
 
     const getUserInfos = async () => {
@@ -47,15 +50,31 @@ const Content = () => {
         const userInfoCollection = collection(db, "users");
         const userSnapShot = await getDocs(userInfoCollection);
         const userList = userSnapShot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        console.log("userList",userList)
         const foundUser = userList.find(user => user.id === cookies.uid);
-        console.log("userSnapShot",userSnapShot)  
         if (foundUser) {
             setUserInfoName(foundUser.username);  
             setUserInfoRole(foundUser.role);  
+            setBanCheck(foundUser.banned)
+            if(banCheck === true){
+                if(cookies.uid){
+                    navigate("/banned")
+                }
+                else{
+                    navigate("/login")
+                }
+            }
         }
         setLoadingState(false)
     }
+
+    useEffect(() => {
+        if(banCheck === true){
+            navigate("/banned")
+        }
+    }, [banCheck])
+
+
+
 
     useEffect(() => {
         const componentsVisibility = {
@@ -113,6 +132,13 @@ const Content = () => {
 
     useEffect(() => {
         getUserInfos()
+    }, [])
+
+    useEffect(() => {
+        if(!cookies.uid){
+            navigate("/login")
+            setBanCheck(false)
+        }
     }, [])
 
     return (

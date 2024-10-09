@@ -9,7 +9,6 @@ import Modal from 'react-modal';
 import CloseImg from "../images/close.svg";
 import { InputSwitch } from 'primereact/inputswitch';
 import PopoverTabControl from "../components/PopoverTabControl";
-import { div } from 'framer-motion/client';
 
 const MemberTabsControl = () => {
     const [adminTabsValue, setAdminTabsValue] = useState([]);
@@ -17,6 +16,7 @@ const MemberTabsControl = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [loadingState2, setLoadingState2] = useState(false);
     const [newRole, setNewRole] = useState("");
+    const [addTabModal, setAddTabModal] = useState(false);
 
     // modal infos 
     const [tabName, setTabName] = useState("");
@@ -118,6 +118,7 @@ const MemberTabsControl = () => {
 
     return (
         <>
+            <div className='relative h-full w-full '>
             <Modal style={customStyles} isOpen={modalOpen} contentLabel='Başlık'>
                 <div className="flex flex-col w-[500px]">
                     <div className="flex items-center justify-between">
@@ -172,7 +173,6 @@ const MemberTabsControl = () => {
                     }
                 </div>
             </Modal>
-
             <div className="flex flex-col">
                 <p className="text-5xl inter-400">Üyelerin sekmelerini yönet</p>
             </div>
@@ -193,6 +193,7 @@ const MemberTabsControl = () => {
                     ))}
                 </div>
             )}
+            </div>
         </>
     );
 }

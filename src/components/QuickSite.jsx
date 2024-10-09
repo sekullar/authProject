@@ -41,8 +41,6 @@ const QuickSite = () => {
         <div className='flex flex-col gap-3'>
         {progressContent ? <div className='flex items-center justify-center'> <ProgressSpinner /> </div> : urlKeys && urlKeys.length > 0 ? 
         urlKeys && urlKeys.map((url, key) => {
-            console.log(url.img);
-            console.log(key);
             const keyUpper = key + 1;
             return (
                 <div className="flex items-center justify-between border-quickSite p-3 rounded-xl" key={keyUpper}>
