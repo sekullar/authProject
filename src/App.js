@@ -19,12 +19,7 @@ function App() {
   const [cookies, setCookies] = useCookies(['uid'])
 
   const { banCheck } = useContext(DataContext)
-  
-  
 
- 
-
-  
 
   return (
     <>

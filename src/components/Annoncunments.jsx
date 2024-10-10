@@ -34,6 +34,19 @@ const Annoncunment = () => {
         },
       };
 
+      useEffect(() => {
+        if("Notification" in window){
+            Notification.requestPermission().then(permission => {
+                if(permission === "granted"){
+                    console.log("Ready go")
+                }
+                else{
+                    console.log("Red yedi aq")
+                }
+            })
+        }
+      }, [])
+
       const addMessage = async () => {
         try {
             setMessageContent("");
@@ -45,7 +58,15 @@ const Annoncunment = () => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
                 index = Object.keys(data).length; 
+                console.log(index)
+                index = index + 1;
+                console.log(index)
             }
+
+            new Notification("Merhaba", {
+                body: "Duyuru Kanalı:" + messageContent,
+                icon: "https://firebasestorage.googleapis.com/v0/b/seku-auth.appspot.com/o/logo.svg?alt=media&token=13b3fd47-1517-41f3-9f4c-342e3d324fef"
+            })
     
             await set(child(usersRef, index.toString()), {
                 name: userInfoName,
