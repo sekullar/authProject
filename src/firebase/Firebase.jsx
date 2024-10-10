@@ -3,6 +3,9 @@ import { getAuth , createUserWithEmailAndPassword, useDeviceLanguage, signInWith
 import toast, { Toaster } from 'react-hot-toast';
 import { getFirestore, setDoc, doc  } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
+import { getDatabase } from 'firebase/database';
+import { getStorage } from "firebase/storage";
+
 
 
 
@@ -21,6 +24,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const rtdb = getDatabase(app);
+const storage = getStorage(app);
 
 
 export const register = async (email,password,username,role,banControl) => {
@@ -78,5 +83,5 @@ export const login = async (email, password) => {
   }
 };
 
-export { db };
+export { db, rtdb, storage };
 export default app

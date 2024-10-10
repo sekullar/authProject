@@ -190,7 +190,7 @@ const UserControl = () => {
         </Modal>
             <div className="flex items-center justify-center flex-col">
                 <p className="inter-500 text-4xl">Üye Kontrolü</p>
-                <div className="flex flex-col mt-12 p-2 rounded-lg gap-4">
+                <div className="flex flex-col mt-12 p-2 rounded-lg gap-4 ">
                 <input 
                     type="text" 
                     placeholder="Kullanıcı ara..." 
@@ -198,7 +198,8 @@ const UserControl = () => {
                     onChange={(e) => setSearchTerm(e.target.value)} 
                     className="border rounded-md my-4 p-2 w-[650px]"
                 />
-                    {loading ? <ProgressSpinner /> :
+                <div className="h-[520px] overflow-auto flex flex-col gap-4">
+                {loading ? <ProgressSpinner /> :
                         filteredUsers && filteredUsers.map((user, key) => {
                             return (
                                 <div key={key} className="flex items-center justify-between w-[650px] border-user-control p-3 rounded-lg">
@@ -221,6 +222,7 @@ const UserControl = () => {
                             );
                         })
                     }
+                </div>
                 </div>
             </div>
         </>

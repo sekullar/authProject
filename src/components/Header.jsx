@@ -29,7 +29,7 @@ const Header = ()  => {
                         <p className="inter-400 text-xl">Hoşgeldin, {userInfoName}</p>
                         <div className="flex items-center gap-3">
                             <img src={AccountImg} onClick={() => setContentValue("userSettings")} className="invert w-[35px] cursor-pointer" alt="Account" />
-                            <img src={SettingsImg} className="invert w-[35px] cursor-pointer" alt="Settings" />
+                            <img src={SettingsImg} onClick={() => setContentValue("Ayarlar")} className="invert w-[35px] cursor-pointer" alt="Settings" />
                         </div>
                     </div>
                 )}

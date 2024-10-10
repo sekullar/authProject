@@ -18,7 +18,7 @@ body{
     background-color:  rgba(255, 255, 255, 0.287);
 }
 
-input:not(#addTabsInRoles,#todoAppInput,#userControlsInput) {
+input:not(#addTabsInRoles,#todoAppInput,#userControlsInput,#annoncunmentInput) {
     outline: 0;
     transition: all 0.3s ease; /* Geçiş süresi 0.3 saniye */
     border: 1px solid rgba(140, 111, 149, 0.5); /* Varsayılan kenar rengi */
@@ -27,7 +27,7 @@ input:not(#addTabsInRoles,#todoAppInput,#userControlsInput) {
     box-shadow: 0 0 5px rgba(140, 111, 149, 0.5); /* Varsayılan gölge */
 }
 
-input:focus:not(#addTabsInRoles,#todoAppInput,#userControlsInput)  {
+input:focus:not(#addTabsInRoles,#todoAppInput,#userControlsInput,#annoncunmentInput)  {
     outline: none; /* Odaklandığında outline'ı kaldır */
     border: 2px solid rgba(140, 111, 149, 0.706); /* Odaklandığında kenar rengi değişimi */
     transform: scale(1.02); /* Odaklandığında hafif büyütme */

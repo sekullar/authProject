@@ -16,6 +16,8 @@ import ToDoList from "./ToDoList";
 import QuickSiteComp from "./QuickSite";
 import QuickSiteAdminComp from "./QuickSiteAdmin";
 import UserControl from "./UserControl";
+import Annoncunment from "./Annoncunments";
+import Settings from "./Settings";
 
 
 const Content = () => {
@@ -38,6 +40,9 @@ const Content = () => {
     const [QuickSite, setQuickSite] = useState(false)
     const [QuickSiteAdmin, setQuickSiteAdmin] = useState(false)
     const [userControlState,setUserControlState] = useState(false);
+    const [annoncunment,setAnnoncunment] = useState(false);
+    const [settings,setSettings] = useState(false);
+
 
 
 
@@ -85,7 +90,10 @@ const Content = () => {
             todoApp: false,
             quickSite: false,
             quickSiteAdmin: false,
-            userControl: false
+            userControl: false,
+            annoncunment: false,
+            addAnnoncunment: false,
+            settings: false
         };
     
         // contentValue değerine göre ilgili bileşeni göster
@@ -114,6 +122,15 @@ const Content = () => {
             case "Üye Kontrolü":
                 componentsVisibility.userControl = true;
                 break;
+            case "Duyurular":
+                componentsVisibility.annoncunment = true;
+            break;
+            case "Duyuru Ekle":
+                componentsVisibility.addAnnoncunment = true;
+            break;
+            case "Ayarlar":
+                componentsVisibility.settings = true;
+            break;
             default:
                 break;
         }
@@ -126,7 +143,9 @@ const Content = () => {
         setTodoApp(componentsVisibility.todoApp);
         setQuickSite(componentsVisibility.quickSite);
         setQuickSiteAdmin(componentsVisibility.quickSiteAdmin);
-        setUserControlState(componentsVisibility.userControl)
+        setUserControlState(componentsVisibility.userControl);
+        setAnnoncunment(componentsVisibility.annoncunment);
+        setSettings(componentsVisibility.settings);
     }, [contentValue]);
     
 
@@ -163,6 +182,8 @@ const Content = () => {
                     {QuickSite ? <QuickSiteComp /> : ""}
                     {QuickSiteAdmin ? <QuickSiteAdminComp /> : ""}
                     {userControlState ? <UserControl /> : ""}
+                    {annoncunment ? <Annoncunment /> : ""}
+                    {settings ? <Settings /> : ""}
                 </div>
             }
         </>
