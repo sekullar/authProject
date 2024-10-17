@@ -19,6 +19,7 @@ const Sidebar = () => {
     const { userInfoRole } = useContext(DataContext);
     const { contentValue,setContentValue } = useContext(DataContext);
     const { tabsRoleSender,setTabsRoleSender} = useContext(DataContext);
+    const { darkMode } = useContext(DataContext);
     const { banCheck } = useContext(DataContext);
 
     
@@ -54,7 +55,7 @@ const Sidebar = () => {
 
     return(
         <>
-        <div className='bg-white m-2 p-5 rounded-lg mt-1 w-[350px] h-full mb-5'>
+        <div className={`${darkMode ? "darkMode text-white" : "bg-white text-blac"} m-2 p-5 rounded-lg mt-1 w-[350px] h-full mb-5`}>
         {loadingTabs ?
             <div className='flex items-center justify-center h-full'>
                  <ProgressSpinner /> 

@@ -27,6 +27,7 @@ const Content = () => {
     const { userInfoName, setUserInfoName } = useContext(DataContext)
     const { userInfoRole, setUserInfoRole } = useContext(DataContext)
     const { banCheck, setBanCheck } = useContext(DataContext)
+    const { darkMode } = useContext(DataContext)
     const { contentValue } = useContext(DataContext)
     const navigate = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies(['uid']);
@@ -163,11 +164,11 @@ const Content = () => {
     return (
         <>
             {loadingState ? 
-            <div className="bg-white p-8 rounded-lg h-full w-full mb-4 me-2">
+            <div className={`${darkMode ? "darkMode text-white" : "bg-white text-black"} p-8 rounded-lg h-full w-full mb-4 me-2`}>
                 <ProgressSpinner />
             </div>
              : 
-                <div className="bg-white p-8 rounded-lg  h-full w-full mb-4 me-2">
+                <div className={`${darkMode ? "darkMode text-white" : "bg-white text-black"} p-8 rounded-lg  h-full w-full mb-4 me-2`}>
                     {sssShow ?  <div className="flex flex-col">
                         <p className="text-center text-5xl inter-600">SSS</p>
                         <p className="text-center text-xl inter-400 mt-3">Kişisel Sorular</p>

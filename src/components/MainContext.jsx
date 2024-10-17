@@ -14,11 +14,22 @@ const DataProvider = ({ children }) => {
     const [userId, setUserId] = useState(null)
     const [emailVerified, setEmailVerified] = useState(null)
     const [banCheck,setBanCheck] = useState(null)
+    const [darkMode,setDarkMode] = useState(null)
 
 
 
 
     const [cookies, setCookie, removeCookie] = useCookies(['uid']);
+
+    useEffect(() => {
+        setCookie("darkModeCookies", darkMode, { path: "/", expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) });
+    }, [darkMode]); 
+    
+
+    useEffect(() => {
+        setDarkMode(cookies.darkModeCookies || false); 
+    }, []);
+    
 
     useEffect(() => {
         setUserInfoName("");
@@ -27,7 +38,7 @@ const DataProvider = ({ children }) => {
     }, [cookies.uid])
     
     return(
-        <DataContext.Provider value={{ userInfoName,userInfoRole, contentValue, photoUrl, emailContext, phoneNumber, userId, emailVerified, banCheck,  setUserInfoName, setUserInfoRole, setContentValue, setPhotoUrl, setEmailContext, setPhoneNumber, setUserId, setEmailVerified, setBanCheck }}>
+        <DataContext.Provider value={{ userInfoName,userInfoRole, contentValue, photoUrl, emailContext, phoneNumber, userId, emailVerified, banCheck, darkMode,  setUserInfoName, setUserInfoRole, setContentValue, setPhotoUrl, setEmailContext, setPhoneNumber, setUserId, setEmailVerified, setBanCheck,setDarkMode }}>
             {children}
         </DataContext.Provider>
     ) 

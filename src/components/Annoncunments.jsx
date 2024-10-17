@@ -63,10 +63,10 @@ const Annoncunment = () => {
                 console.log(index)
             }
 
-            new Notification("Merhaba", {
-                body: "Duyuru Kanalı:" + messageContent,
-                icon: "https://firebasestorage.googleapis.com/v0/b/seku-auth.appspot.com/o/logo.svg?alt=media&token=13b3fd47-1517-41f3-9f4c-342e3d324fef"
-            })
+            // new Notification("Duyuru Kanalı için yeni mesaj", {
+            //     body:  messageContent,
+            //     icon: "https://firebasestorage.googleapis.com/v0/b/seku-auth.appspot.com/o/logo.svg?alt=media&token=13b3fd47-1517-41f3-9f4c-342e3d324fef"
+            // })
     
             await set(child(usersRef, index.toString()), {
                 name: userInfoName,

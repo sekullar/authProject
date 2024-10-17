@@ -63,4 +63,7 @@ input:focus:not(#addTabsInRoles,#todoAppInput,#userControlsInput,#annoncunmentIn
     font-style: normal;
 }
 
+.darkMode{
+    background-color: rgb(40, 39, 39) !important;
+}
 
