@@ -18,6 +18,7 @@ import QuickSiteAdminComp from "./QuickSiteAdmin";
 import UserControl from "./UserControl";
 import Annoncunment from "./Annoncunments";
 import Settings from "./Settings";
+import Chat from "./Chat";
 
 
 const Content = () => {
@@ -43,6 +44,7 @@ const Content = () => {
     const [userControlState,setUserControlState] = useState(false);
     const [annoncunment,setAnnoncunment] = useState(false);
     const [settings,setSettings] = useState(false);
+    const [chatState,setChatState] = useState(false);
 
 
 
@@ -79,7 +81,9 @@ const Content = () => {
         }
     }, [banCheck])
 
-
+    useEffect(() => {
+        console.log(chatState)
+    }, [chatState])
 
 
     useEffect(() => {
@@ -94,10 +98,10 @@ const Content = () => {
             userControl: false,
             annoncunment: false,
             addAnnoncunment: false,
-            settings: false
+            settings: false,
+            chat: false
         };
     
-        // contentValue değerine göre ilgili bileşeni göster
         switch (contentValue) {
             case "home":
                 componentsVisibility.home = true;
@@ -132,11 +136,13 @@ const Content = () => {
             case "Ayarlar":
                 componentsVisibility.settings = true;
             break;
+            case "Sohbetler":
+                componentsVisibility.chat = true;
+            break;
             default:
                 break;
         }
     
-        // Bileşenlerin görünürlük durumunu ayarlamak için set fonksiyonlarını çağır
         setHomeShow(componentsVisibility.home);
         setSssShow(componentsVisibility.KişiselSorular);
         setUserSettingsShow(componentsVisibility.userSettings);
@@ -147,8 +153,12 @@ const Content = () => {
         setUserControlState(componentsVisibility.userControl);
         setAnnoncunment(componentsVisibility.annoncunment);
         setSettings(componentsVisibility.settings);
+        setChatState(componentsVisibility.chat);
     }, [contentValue]);
     
+    useEffect(() => {
+        console.log(contentValue)
+    }, [contentValue])
 
     useEffect(() => {
         getUserInfos()
@@ -160,6 +170,9 @@ const Content = () => {
             setBanCheck(false)
         }
     }, [])
+
+    
+    
 
     return (
         <>
@@ -185,6 +198,7 @@ const Content = () => {
                     {userControlState ? <UserControl /> : ""}
                     {annoncunment ? <Annoncunment /> : ""}
                     {settings ? <Settings /> : ""}
+                    {chatState ? <Chat /> : ""}
                 </div>
             }
         </>

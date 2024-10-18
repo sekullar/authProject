@@ -1,0 +1,8 @@
+#chatInput{
+    transition: all .3s ease;
+    outline: 0px solid transparent;
+}
+
+#chatInput:focus{
+    box-shadow: 0 0 30px rgba(1, 133, 199, 0.5);
+}

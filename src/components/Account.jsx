@@ -38,7 +38,7 @@ const Account = () => {
 
     const [modalIsOpen,SetModalIsOpen] = useState(false)
 
-    const { userInfoName,userInfoRole,emailContext,photoUrl,phoneNumber,userId,emailVerified } = useContext(DataContext);
+    const { userInfoName,userInfoRole,emailContext,photoUrl,phoneNumber,userId,emailVerified,darkMode } = useContext(DataContext);
 
     return(
         <>
@@ -59,8 +59,8 @@ const Account = () => {
             </Modal>
             <div className="flex flex-col h-full relative">
                 <div className="flex justify-start items-center gap-4">
-                    <div className="border-profile-black rounded-lg">   
-                        <img src={AccountImg} className="invert w-[150px] h-[150px]" alt="Account" />
+                    <div className={`${darkMode ? "border-profile-white" : "border-profile-black"} border-white rounded-lg`}>   
+                        <img src={AccountImg} className={`${darkMode ? "isOk" : "invert"} w-[150px] h-[150px]`} alt="Account" />
                     </div>
                     <div className="flex flex-col">
                         <p className="text-2xl inter-400">Kullanıcı adı: {userInfoName}</p>
