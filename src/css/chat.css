@@ -6,3 +6,26 @@
 #chatInput:focus{
     box-shadow: 0 0 30px rgba(1, 133, 199, 0.5);
 }
+
+#mappingDiv {
+    scrollbar-width: thin; 
+    scrollbar-color: #403d3d transparent; 
+  }
+  
+  #mappingDiv::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #mappingDiv::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  
+  #mappingDiv::-webkit-scrollbar-thumb {
+    background-color: #2b2929; 
+    border-radius: 10px; 
+  }
+  
+  #mappingDiv::-webkit-scrollbar-thumb:hover {
+    background-color: #383535; 
+  }
+  
