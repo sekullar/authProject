@@ -1,5 +1,5 @@
 import { ref, onValue, push, set, remove} from "firebase/database";
-import { addDoc, collection, getDocs, deleteDoc, doc, updateDoc} from 'firebase/firestore';
+import { addDoc, collection, getDocs, deleteDoc, doc, updateDoc, onSnapshot} from 'firebase/firestore';
 import { rtdb } from "../firebase/Firebase";  
 import Send from "../images/mynaui--send.svg";
 import { useCookies } from "react-cookie";
@@ -12,9 +12,12 @@ import Modal from 'react-modal';
 import Close from "../images/close.svg";
 import "../css/chat.css";
 import User from "../images/account.svg";
+import Switch, { SwitchProps } from '@mui/material/Switch';
+
 
 const Chat = () => {
     const [cookies] = useCookies(['uid']);
+    const [systemSenderCookie, setCookies] = useCookies(['systemSenderInfo']);
     const { userInfoRole, userInfoName,darkMode } = useContext(DataContext);
     const [messageContent, setMessageContent] = useState("");
     const [messageInside, setMessageInside] = useState([]);
@@ -24,6 +27,8 @@ const Chat = () => {
 
     const [isOkError, setIsOkError] = useState(false);
     const [isOkControlState, setIsOkControlState] = useState([]);
+    const [systemMode,setSystemMode]  = useState(false);
+    const [systemSenderInfo,setSystemSenderInfo] = useState(true);
 
     const getMessages = () => {
         try {
@@ -92,10 +97,12 @@ const Chat = () => {
             const usersRef = ref(rtdb, 'liveChat');
             setLoading(true);  
             const newMessageRef = push(usersRef);
-
+    
             await set(newMessageRef, {
-                name: userInfoName,
-                message: "Adminstrator, sohbeti açtı",
+                name: "Sistem",
+                message: systemSenderCookie.systemSenderInfo 
+                    ? `${userInfoName}, sohbet ayarlarında değişiklik yaptı.` 
+                    : "Bir yetkili, sohbet ayarlarında değişiklik yaptı.",
                 timestamp: Date.now(), 
             });
             setLoading(false); 
@@ -104,6 +111,7 @@ const Chat = () => {
             setLoading(false);
         }
     }
+    
 
     const clearLiveChat = async () => {
         try {
@@ -121,28 +129,34 @@ const Chat = () => {
         try {
             const docRef = doc(db, "AdminTabs", "Sohbetler"); 
             const newValue = isOkControlState.includes("Member") ? "Seku,Admin" : "Seku,Admin,Member"; 
+            
             await updateDoc(docRef, {
                 isOkFor: newValue 
             });
+    
+            await autoMessageForIsOkFromAdmin();
+            
             console.log("isOkFor güncellendi:", newValue);
         } catch (error) {
             console.error("Güncelleme hatası:", error);
             toast.error("Güncellenirken bir hata oluştu");
         }
     };
+    
 
     const getIsOkForChat = async () => {
         try {
             const isOkCollection = collection(db, "AdminTabs");
             const isOkSnapshot = await getDocs(isOkCollection);
-
+            
             const isOkList = isOkSnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             }));
-            console.log(isOkList);
+    
             const isOkControl = isOkList.find(item => item.id === "Sohbetler");
             const isOkControlValue = isOkControl?.isOkFor; 
+            
             if (isOkControlValue) {
                 const partedList = isOkControlValue.split(",");
                 setIsOkControlState(partedList);
@@ -155,10 +169,29 @@ const Chat = () => {
             setIsOkError(true);
         }
     };
+    
+    const listenForChatStatusChanges = () => {
+        const docRef = doc(db, "AdminTabs", "Sohbetler");
+        onSnapshot(docRef, (doc) => {
+            const data = doc.data();
+            const isOkValue = data.isOkFor;
+            const partedList = isOkValue ? isOkValue.split(",") : [];
+            setIsOkControlState(partedList);
+        });
+    };
+    
+    useEffect(() => {
+        listenForChatStatusChanges();
+    }, []);
+    
 
     useEffect(() => {
             getIsOkForChat();
     }, []);
+
+    useEffect(() => {
+        setCookies('systemSenderInfo', systemSenderInfo, { path: '/', maxAge: 31536000 }); 
+    }, [systemSenderInfo]);
 
     const customStyles = {
         content: {
@@ -183,6 +216,10 @@ const Chat = () => {
                     <div className="flex flex-wrap items-center gap-3 mt-5">
                         <button onClick={() => {updateIsOkFor(); getIsOkForChat();}} className={`${isOkError ? "opacity-50" : "opacity-100"} ${isOkControlState.includes("Member") ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600"} transition-all duration-300 outline-0 rounded-lg px-4 py-2 text-white inter-500`}>{isOkControlState.includes("Member") ? "Sohbeti yazışmaya kapat" : "Sohbetin yazışmasını aç"}</button>
                         <button onClick={() => clearLiveChat()} className="bg-red-500 hover:bg-red-600 transition-all duration-300 outline-0 rounded-lg px-4 py-2 text-white inter-500">Sohbeti tamamen temizle</button>
+                        <div className="flex items-center">
+                            <p className="inter-500">Sistem mesajlarında değişiklik yaparsan, ismin belirtilecek</p>
+                            <Switch defaultChecked={systemSenderCookie.systemSenderInfo} onChange={(e) => setSystemSenderInfo(e.target.checked)}/>
+                        </div>
                     </div>
                 </div>
             </Modal>
