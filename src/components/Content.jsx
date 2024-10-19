@@ -45,6 +45,8 @@ const Content = () => {
     const [annoncunment,setAnnoncunment] = useState(false);
     const [settings,setSettings] = useState(false);
     const [chatState,setChatState] = useState(false);
+    const [valorantInfoComp,setValorantInfoComp] = useState(false);
+
 
 
 
@@ -99,7 +101,8 @@ const Content = () => {
             annoncunment: false,
             addAnnoncunment: false,
             settings: false,
-            chat: false
+            chat: false,
+            valorantInfo: false
         };
     
         switch (contentValue) {
@@ -139,6 +142,9 @@ const Content = () => {
             case "Sohbetler":
                 componentsVisibility.chat = true;
             break;
+            case "Valorant Info":
+                componentsVisibility.valorantInfo = true;
+            break;
             default:
                 break;
         }
@@ -154,6 +160,7 @@ const Content = () => {
         setAnnoncunment(componentsVisibility.annoncunment);
         setSettings(componentsVisibility.settings);
         setChatState(componentsVisibility.chat);
+        setValorantInfoComp(componentsVisibility.valorantInfo);
     }, [contentValue]);
     
     useEffect(() => {

@@ -71,12 +71,12 @@ const Sidebar = () => {
 
             return (
                 <AccordionTab 
-                    className={isHiddenForMember ? "isOk" : userInfoRole === "Admin" || userInfoRole === "Seku" ? "isOk" : "hidden" } 
-                    header={<span className='text-xl inter-500'>{keyName}</span>} 
-                    key={keyName}
-                >
-                     {tabKeys
-                    .filter(subKey => subKey !== 'show') 
+                className={isHiddenForMember ? "isOk" : userInfoRole === "Admin" || userInfoRole === "Seku" ? "isOk" : "hidden"} 
+                header={<span className='text-xl inter-500'>{keyName}</span>} 
+                key={keyName}
+            >
+                {tabKeys
+                    .filter(subKey => subKey !== 'show' && subKey !== 'isOkFor') 
                     .map((subKey) => (
                         <div key={subKey} className='flex flex-col gap-2 my-1'>
                             <span 
@@ -85,9 +85,8 @@ const Sidebar = () => {
                                 {tab[subKey]} 
                             </span>
                         </div>
-                    ))
-                }
-                </AccordionTab>
+                    ))}
+            </AccordionTab>
             );
         })}
     </Accordion>}    
