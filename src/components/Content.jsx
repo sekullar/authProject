@@ -19,6 +19,8 @@ import UserControl from "./UserControl";
 import Annoncunment from "./Annoncunments";
 import Settings from "./Settings";
 import Chat from "./Chat";
+import ValorantInfo from "./ValorantInfo";
+import SteamInfo from "./SteamInfo";
 
 
 const Content = () => {
@@ -46,6 +48,8 @@ const Content = () => {
     const [settings,setSettings] = useState(false);
     const [chatState,setChatState] = useState(false);
     const [valorantInfoComp,setValorantInfoComp] = useState(false);
+    const [steamInfoComp,setSteamInfoComp] = useState(false);
+
 
 
 
@@ -102,7 +106,8 @@ const Content = () => {
             addAnnoncunment: false,
             settings: false,
             chat: false,
-            valorantInfo: false
+            valorantInfo: false,
+            steamInfo: false
         };
     
         switch (contentValue) {
@@ -110,7 +115,7 @@ const Content = () => {
                 componentsVisibility.home = true;
                 break;
             case "Kişisel Sorular":
-                componentsVisibility.KişiselSorular = true;
+                componentsVisibility.KisiselSorular = true;
                 break;
             case "userSettings":
                 componentsVisibility.userSettings = true;
@@ -145,12 +150,15 @@ const Content = () => {
             case "Valorant Info":
                 componentsVisibility.valorantInfo = true;
             break;
+            case "Steam Info":
+                componentsVisibility.steamInfo = true;
+            break;
             default:
                 break;
         }
     
         setHomeShow(componentsVisibility.home);
-        setSssShow(componentsVisibility.KişiselSorular);
+        setSssShow(componentsVisibility.KisiselSorular);
         setUserSettingsShow(componentsVisibility.userSettings);
         setMemberTabsControl(componentsVisibility.memberTabsControl);
         setTodoApp(componentsVisibility.todoApp);
@@ -161,6 +169,7 @@ const Content = () => {
         setSettings(componentsVisibility.settings);
         setChatState(componentsVisibility.chat);
         setValorantInfoComp(componentsVisibility.valorantInfo);
+        setSteamInfoComp(componentsVisibility.steamInfo)
     }, [contentValue]);
     
     useEffect(() => {
@@ -206,6 +215,8 @@ const Content = () => {
                     {annoncunment ? <Annoncunment /> : ""}
                     {settings ? <Settings /> : ""}
                     {chatState ? <Chat /> : ""}
+                    {valorantInfoComp ? <ValorantInfo /> : ""}
+                    {steamInfoComp ? <SteamInfo /> : ""}
                 </div>
             }
         </>
