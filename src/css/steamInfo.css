@@ -1,0 +1,21 @@
+#scrollFriends {
+    scrollbar-width: thin; 
+    scrollbar-color: #403d3d transparent; 
+  }
+  
+  #scrollFriends::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #scrollFriends::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  
+  #scrollFriends::-webkit-scrollbar-thumb {
+    background-color: #2b2929; 
+    border-radius: 10px; 
+  }
+  
+  #scrollFriends::-webkit-scrollbar-thumb:hover {
+    background-color: #383535; 
+  }

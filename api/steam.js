@@ -1,13 +1,25 @@
-export default async function handler(req, res) {
-    const { steamid } = req.query;
-    const apiUrl = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=DB773A873E356C67C98A46975F10B53A&steamids=${steamid}`;
+async function getSteamID() {
   
-    try {
-      const response = await fetch(apiUrl);
+  try {
+      const response = await fetch(`https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=DB773A873E356C67C98A46975F10B53A&vanityurl=sekullarx`);
       const data = await response.json();
-      res.status(200).json(data);
-    } catch (error) {
-      res.status(500).json({ message: 'Veri çekilemedi' });
-    }
+      
+      console.log('API Yanıtı:', data); 
+
+      if (data.response.success === 1) {
+          return data.response.steamid;
+      } else {
+          console.error('Kullanıcı adı bulunamadı veya hata oluştu:', data.response);
+          return null;
+      }
+  } catch (error) {
+      console.error('API isteğinde bir hata oluştu:', error);
   }
-  
+}
+
+// Kullanımı
+getSteamID('sekullarx').then(steamID => {
+  if (steamID) {
+      console.log(`Steam ID: ${steamID}`);
+  }
+});

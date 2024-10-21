@@ -10,6 +10,7 @@ const Settings = () => {
     const handleChange = () => {
         setDarkMode(!darkMode)
     }
+    
 
     return(
         <>
@@ -20,6 +21,7 @@ const Settings = () => {
                         <p>Karanlık Mod</p>
                         <Switch checked={darkMode} onChange={handleChange}/>
                     </div>
+                    <button className='bg-purple-500 hover:f'>Renk teması belirle</button>
                 </div>
             </div>
         </>

@@ -123,7 +123,7 @@ const Annoncunment = () => {
                     <div className="flex flex-col mt-12 ">
                         <p className='inter-500 text-xl mb-1'>Yeni eklenecek duyuru iletisini yazın: </p>
                         <input type="text" id='annoncunmentInput' className='outline-0 border rounded-lg px-2 py-1' value={messageContent} onChange={(e) => setMessageContent(e.target.value)}/>
-                        <button className='bg-sky-500 hover:bg-sky-600 transition-all duration-300 px-4 py-2 rounded-lg inter-500 text-white mt-4' onClick={() => {addMessage();}}>Ekle</button>
+                        <button className='bg-purple-500 hover:bg-purple-600 transition-all duration-300 px-4 py-2 rounded-lg inter-500 text-white mt-4' onClick={() => {addMessage();}}>Ekle</button>
                     </div>
                 </div>
             </Modal>
@@ -145,7 +145,7 @@ const Annoncunment = () => {
                 </div>{userInfoRole === "Seku" || userInfoRole === "Admin" ? 
                     <div className='absolute bottom-0 flex justify-center w-full'>
                         <input type="text" value={messageContent} onKeyDown={handleKeyDown} onChange={(e) => setMessageContent(e.target.value)} autoComplete='off' placeholder='Mesajınızı girin' className='border outline-0  me-2 rounded-lg w-1/2 px-2' id='annoncunmentInput'/>
-                        <button className='bg-sky-500 hover:bg-sky-600 transition-all duration-300 inter-500 rounded-lg px-6 py-2 text-white ' onClick={() => addMessage()}><img src={Send} className='w-[25px]' alt='Send' /></button>
+                        <button className='bg-purple-500 hover:bg-purple-600 transition-all duration-300 inter-500 rounded-lg px-6 py-2 text-white ' onClick={() => addMessage()}><img src={Send} className='w-[25px]' alt='Send' /></button>
                     </div>
                     :
                     ""

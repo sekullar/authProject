@@ -226,7 +226,7 @@ const Chat = () => {
             <div className="flex flex-col h-full relative">
                 {
                     userInfoRole === "Seku" || userInfoRole === "Admin" ? 
-                    <button onClick={() => setModalOpen(!modalOpen)} className="bg-sky-500 hover:bg-sky-600 text-white rounded-lg px-4 py-2 transition-all duration-300 inter-500 absolute end-0 top-0 outline-0">
+                    <button onClick={() => setModalOpen(!modalOpen)} className="bg-purple-500 hover:hover:bg-purple-600 text-white rounded-lg px-4 py-2 transition-all duration-300 inter-500 absolute end-0 top-0 outline-0">
                         Sohbet ayarları
                     </button>
                     :
@@ -240,7 +240,7 @@ const Chat = () => {
                             <div key={message.id} className='w-full flex items-center justify-start'> 
                                 <img src={User} className={`w-[60px] ${darkMode ? "" : "invert"}`} alt="User" />
                                 <div className="flex flex-col">
-                                    <p className='text-sky-500 inter-600'>{message.name}</p>
+                                    <p className='text-fuchsia-700 inter-600'>{message.name}</p>
                                     <p>{message.message}</p>
                                 </div>
                             </div>
@@ -264,7 +264,7 @@ const Chat = () => {
                                     placeholder="Mesajınızı girin"
                                 />
                                 <button 
-                                    className="px-4 py-2 rounded-lg transition-all bg-sky-500 hover:bg-sky-600 text-white outline-0" 
+                                    className="px-4 py-2 rounded-lg transition-all bg-purple-500 hover:bg-purple-600 text-white outline-0" 
                                     onClick={addMessage}>
                                     {loading ? 
                                         <ProgressSpinner style={{width: '25px', height: '25px'}} strokeWidth="8" animationDuration=".5s" />
@@ -274,7 +274,7 @@ const Chat = () => {
                                 </button>
                             </div>
                             :
-                            <div className="bg-sky-500 hover:bg-sky-600 transition-all cursor-pointer duration-300 px-4 py-2 rounded-lg text-white">
+                            <div className="bg-purple-500 hover:bg-purple-600 transition-all cursor-pointer duration-300 px-4 py-2 rounded-lg text-white">
                                 <p className={`${userInfoRole === "Seku" || userInfoRole === "Admin" ? "mb-2 text-center" : ""}`}>Sohbet, şu anda sohbete kapalı {userInfoRole === "Seku" || userInfoRole === "Admin" ? "(Üyeler yazamaz)" : ""}</p>
                                 {userInfoRole === "Seku" || userInfoRole === "Admin" ? 
                                     <div className="flex justify-center w-full gap-2">
@@ -289,7 +289,7 @@ const Chat = () => {
                                         placeholder="Mesajınızı girin"
                                     />
                                     <button 
-                                        className="px-4 py-2 rounded-lg transition-all bg-sky-500 hover:bg-sky-600 text-white outline-0" 
+                                        className="px-4 py-2 rounded-lg transition-all bg-purple-500 hover:bg-purple-600 text-white outline-0" 
                                         onClick={addMessage}>
                                         {loading ? 
                                             <ProgressSpinner style={{width: '25px', height: '25px'}} strokeWidth="8" animationDuration=".5s" />

@@ -130,7 +130,7 @@ const UserControl = () => {
                     <p className="inter-400 text-3xl">{userName}</p>
                 </div>
                 <div className="flex flex-col gap-2">
-                    <div className={`flex items-center ${userRole === "Seku" ? "bg-sky-500 text-white inter-500 transition-all duration-300 hover:bg-sky-400 rounded-lg p-2" : "isOk"}`}>
+                    <div className={`flex items-center ${userRole === "Seku" ? "bg-purple-500 text-white inter-500 transition-all duration-300 hover:bg-purple-600 rounded-lg p-2" : "isOk"}`}>
                         <p className="inter-400 text-lg">Rol: </p>
                         <p className="inter-400 text-lg">{userRole}</p>
                     </div>
@@ -150,7 +150,7 @@ const UserControl = () => {
                         <div className="flex flex-col">
                             <p className="inter-600 text-lg">Kullanıcı rolünü değiştir</p>
                             <input type="text" className="border rounded-md mb-2 outline-0 my-2 px-2" value={newRole} onChange={(e) => setNewRole(e.target.value)} id="userControlsInput"/>
-                            <button className="bg-sky-500 hover:bg-sky-600 transition-all duration-300 text-white inter-400 py-1 rounded-lg" onClick={() => {changeRole(); clearInput();}} >Değiştir</button>
+                            <button className="bg-purple-500 hover:bg-purple-600 transition-all duration-300 text-white inter-400 py-1 rounded-lg" onClick={() => {changeRole(); clearInput();}} >Değiştir</button>
                         </div>
                     }
                     <div className="flex flex-col mt-6">
@@ -207,7 +207,7 @@ const UserControl = () => {
                                         <img src={User} className="invert w-[35px]" alt="User" />
                                         <p className="inter-500">{user.username}</p>
                                     </div>
-                                    <button className="inter-500 bg-sky-500 hover:bg-sky-600 transition-all outline-0 duration-300 px-4 py-2 rounded-lg text-white" onClick={() => {
+                                    <button className="inter-500 bg-purple-500 hover:bg-purple-600 transition-all outline-0 duration-300 px-4 py-2 rounded-lg text-white" onClick={() => {
                                         setModalOpen(true);
                                         setUserId(user.id);
                                         setUsername(user.username);

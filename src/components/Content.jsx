@@ -197,7 +197,7 @@ const Content = () => {
                 <ProgressSpinner />
             </div>
              : 
-                <div className={`${darkMode ? "darkMode text-white" : "bg-white text-black"} p-8 rounded-lg  h-full w-full mb-4 me-2`}>
+                <div className={`${darkMode ? "darkMode text-white" : "bg-white text-black"} p-8 rounded-lg calc-max-w h-full w-full mb-4 me-2`}>
                     {sssShow ?  <div className="flex flex-col">
                         <p className="text-center text-5xl inter-600">SSS</p>
                         <p className="text-center text-xl inter-400 mt-3">Kişisel Sorular</p>

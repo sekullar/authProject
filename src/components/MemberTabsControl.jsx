@@ -131,7 +131,7 @@ const MemberTabsControl = () => {
                                 <span className='inter-400 text-xl'>{tabName} şu kişiler tarafından görünür:</span>
                                 <span className='inter-600 text-xl mt-2'>{tabsRoleSender}</span>
                             </div>
-                            <button onClick={() => setEditMod(!editMode)} className='inter-500 bg-sky-500 transition-all duration-300 hover:bg-sky-600 py-1 px-5 text-white rounded-lg text-lg'>Düzenle</button>
+                            <button onClick={() => setEditMod(!editMode)} className='inter-500 bg-purple-500 transition-all duration-300 hover:bg-purple-600 py-1 px-5 text-white rounded-lg text-lg'>Düzenle</button>
                         </div>
                     </div>
                     {editMode ?
@@ -154,7 +154,7 @@ const MemberTabsControl = () => {
                             ))}
                             <div className='flex justify-center'>
                                 <button
-                                    className='text-white text-lg rounded-lg bg-sky-500 hover:bg-sky-600 transition-all duration-300 py-1 px-8'
+                                    className='text-white text-lg rounded-lg bg-purple-500 hover:bg-purple-600 transition-all duration-300 py-1 px-8'
                                     onClick={handleSaveRoles}
                                 >
                                     Kaydet
@@ -165,7 +165,7 @@ const MemberTabsControl = () => {
                             </div>
                             <input type="text" className='mt-1' value={newRole} onChange={(e) => setNewRole(e.target.value)} id='addTabsInRoles' />
                             <div className='overflow-y-hidden mt-3 flex items-center'>
-                                <button onClick={() => handleAddRole()} className='py-2 px-6 bg-sky-500 hover:bg-sky-600 transition-all duration-300 text-white inter-400 rounded-lg me-2'>Ekle</button>
+                                <button onClick={() => handleAddRole()} className='py-2 px-6 bg-purple-500 hover:bg-purple-600 transition-all duration-300 text-white inter-400 rounded-lg me-2'>Ekle</button>
                                 <PopoverTabControl />
                                 {loadingState2 ? <ProgressSpinner /> : ""}
                             </div>
@@ -186,7 +186,7 @@ const MemberTabsControl = () => {
                     {adminTabsValue && adminTabsValue.map((tab, key) => (
                         <div className='flex items-center justify-between border-black-special ps-5 py-2 rounded-lg' key={key}>
                             <p>{tab.id}</p>
-                            <button onClick={() => handleOpenModal(tab)} className='inter-600 bg-sky-500 transition-all duration-300 hover:bg-sky-600 text-white me-2 rounded-lg px-4 py-1 flex items-center'>
+                            <button onClick={() => handleOpenModal(tab)} className='inter-600 bg-purple-500 transition-all duration-300 hover:bg-purple-600 text-white me-2 rounded-lg px-4 py-1 flex items-center'>
                                 <span>...</span>
                             </button>
                         </div>

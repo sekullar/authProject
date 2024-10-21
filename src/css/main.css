@@ -63,7 +63,14 @@ input:focus:not(#addTabsInRoles,#todoAppInput,#userControlsInput,#annoncunmentIn
     font-style: normal;
 }
 
+.text-fuchsia-700{
+    color: #e71bcf !important;
+}
+
 .darkMode{
     background-color: rgb(40, 39, 39) !important;
 }
 
+.calc-max-w{
+    width: calc(100vw - 350px) !important;
+}

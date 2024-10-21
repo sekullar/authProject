@@ -116,7 +116,7 @@ const QuickSiteAdmin = () => {
                         <p className='inter-400 mb-2'>Site linki</p>
                         <input type="text" placeholder='Site linki' onChange={(e) => setSiteLink(e.target.value)} />
                     </div>
-                    <button className='inter-500 text-white bg-sky-500 hover:bg-sky-600 transition-all duration-300 px-4 py-2 rounded-lg text-lg' onClick={AddQuickSites}>{progressLoading ? <ProgressSpinner style={{width: '30px', height: '30px'}} strokeWidth="8"  animationDuration=".5s" /> : "Ekle"}</button>
+                    <button className='inter-500 text-white bg-purple-500 hover:bg-purple-600 transition-all duration-300 px-4 py-2 rounded-lg text-lg' onClick={AddQuickSites}>{progressLoading ? <ProgressSpinner style={{width: '30px', height: '30px'}} strokeWidth="8"  animationDuration=".5s" /> : "Ekle"}</button>
                 </div>
             </Modal>
             <div className='relative h-full flex flex-col gap-3'>
@@ -145,7 +145,7 @@ const QuickSiteAdmin = () => {
                         </div>}
             
                 <div className="flex justify-center">
-                    <button className='bg-sky-500 hover:bg-sky-600 transition-all duration-300 rounded-lg text-white outline-0 px-4 py-2 inter-500 absolute bottom-0' onClick={() => setModalOpen(true)}>Quick Site ekle</button>
+                    <button className='bg-purple-500 hover:bg-purple-600 transition-all duration-300 rounded-lg text-white outline-0 px-4 py-2 inter-500 absolute bottom-0' onClick={() => setModalOpen(true)}>Quick Site ekle</button>
                 </div>
             </div>
         </>
