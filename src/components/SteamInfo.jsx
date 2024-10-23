@@ -7,6 +7,7 @@ import 'react-multi-carousel/lib/styles.css';
 import "../css/steamInfo.css"
 import Modal from 'react-modal';
 import Close from "../images/close.svg";
+import Magnify from "../images/mdi--magnify.svg"
 
 
 const SteamInfo = () => {
@@ -46,6 +47,8 @@ const SteamInfo = () => {
     const [ownedGamesCount,setOwnedGamesCount] = useState(0);
     const [steamAllApps, setSteamAllApps] = useState({ applist: { apps: [] } }); 
 
+    const [searchTerm, setSearchTerm] = useState("");
+
 
     const [friendError,setFriendError] = useState(false);
 
@@ -71,8 +74,6 @@ const SteamInfo = () => {
                 console.error("Oyun listesi yüklenirken bir hata oluştu:", error);
             });
     }, []); 
-
-
     
     const getPlayerID = () => {
         setSteamIdLogin(false);
@@ -215,26 +216,37 @@ const SteamInfo = () => {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            borderRadius: "12px"
+            borderRadius: "12px",
+            maxHeight: "calc(100vh - 50px)",
+            height: "calc(100vh - 50px)",
+            minWidth: "500px"
         },
     };
 
     return(
         <>
         <Modal style={customStyles} isOpen={allOwnedGamesModal}>
-            <div className="flex flex-col max-w-[500px] max-h-screen overflow-auto py-4 relative">
+            <div className="flex flex-col max-w-[500px] overflow-auto py-4 relative" id="scrollFriends">
                 <img src={Close} className="absolute end-0 top-0 invert w-[40px] mt-4" onClick={() => setAllOwnedGamesModal(!allOwnedGamesModal)} alt="" />
                 <p className="inter-500 text-3xl">{usernameSteam} kişisinin Kütüphanesi</p>
+                <div className="flex p-2 items-center border w-[180px] my-5 rounded-lg">
+                    <input type="text" id="searchGameModal" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="outline-0 w-[130px]" placeholder="Oyun arayın..."/>
+                    <img src={Magnify} className="invert w-[35px]" alt="" />
+                </div>
                 <div className="flex flex-wrap items-center gap-3">
-                {dataOwnedGames.map((info, key) => {
-                    const gameName = findGameName(info.appid);
-                    return (
-                        <div key={key} className="item flex flex-col mt-4">
-                            <p className="inter-500">Oyun: {gameName}</p>
-                            <p>Oynanılan toplam süre: {info.playtime_forever} dakika</p>
-                        </div>
-                    );
-                })}
+                {dataOwnedGames.filter((info) => {
+                            const gameName = findGameName(info.appid).toLowerCase();
+                            return gameName.includes(searchTerm.toLowerCase()); 
+                        })
+                        .map((info, key) => {
+                            const gameName = findGameName(info.appid);
+                            return (
+                                <div key={key} className="item flex flex-col mt-4">
+                                    <p className="inter-500">Oyun: {gameName}</p>
+                                    <p>Oynanılan toplam süre: {info.playtime_forever} dakika</p>
+                                </div>
+                            );
+                        })}
                 </div>
             </div>
         </Modal>
@@ -354,15 +366,15 @@ const SteamInfo = () => {
                 {dataOwnedGames.map((info, key) => {
                     const gameName = findGameName(info.appid);
                     return (
-                        <div key={key} className="item flex flex-col mt-4">
-                            <p className="inter-500">Oyun: {gameName}</p>
-                            <p>Oynanılan toplam süre: {info.playtime_forever} dakika</p>
+                        <div key={key} className="item flex flex-col items-center mt-4">
+                            <p className="inter-600 text-nowrap">Oyun: {gameName}</p>
+                            <p className="inter-500 text-nowrap">Oynanılan toplam süre: {info.playtime_forever} dakika</p>
                         </div>
                     );
                 })}
             </Carousel>
-            <div>
-                <button className="bg-purple-500  hover:bg-purple-600 transition-all duration-300 text-white px-4 py-2 rounded-lg inter-500" onClick={() => setAllOwnedGamesModal(!allOwnedGamesModal)}>Tümüne gözat</button>
+            <div className="mt-3">
+                <button className="bg-purple-500  hover:bg-purple-600 transition-all duration-300 text-white px-4 py-2 outline-0 rounded-lg inter-500" onClick={() => setAllOwnedGamesModal(!allOwnedGamesModal)}>Tümüne gözat</button>
             </div>
         </div>
             
